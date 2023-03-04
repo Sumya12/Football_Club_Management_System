@@ -3,9 +3,11 @@ package com.pro.soccer.model;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Club {
+	@Id
 	private Integer club_id;
 	private Double charges;
 	private List<TrainingBatch> batches;

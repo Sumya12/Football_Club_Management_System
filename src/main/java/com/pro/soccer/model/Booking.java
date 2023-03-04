@@ -5,8 +5,10 @@ import java.util.List;
 import org.aspectj.weaver.patterns.ConcreteCflowPointcut.Slot;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 @Entity
 public class Booking<T> {
+	@Id
 	private Integer book_id;
 	private T traineeType;
 	private List<Slot> slots;

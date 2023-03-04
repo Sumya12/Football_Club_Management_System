@@ -42,7 +42,7 @@ public class UserService implements CrudService<Users, String>{
 	@Override
 	public String delete(String id) {
 		// TODO Auto-generated method stub
-		if(repo.findById(id).equals(Optional.empty())) return -1;
+		if(repo.findById(id).equals(Optional.empty())) return "Email Not Found";
 		repo.deleteById(id);
 		return id;
 	}

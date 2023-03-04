@@ -1,10 +1,12 @@
 package com.pro.soccer.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Player {
 	private Users user;
+	@Id
 	private Integer platyer_id;
 	private Coach personalCoach;
 	private Booking<Player> booking;

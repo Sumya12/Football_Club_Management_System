@@ -3,9 +3,11 @@ package com.pro.soccer.model;
 import java.sql.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Slots {
+	@Id
 	private Integer slot_id;
 	private Date date;
 	private String from;

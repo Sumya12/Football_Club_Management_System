@@ -3,8 +3,10 @@ package com.pro.soccer.model;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 @Entity
 public class Ground {
+	@Id
 	private Integer ground_id;
 	private List<Slots> slots;
 	private Long capacity;

@@ -3,13 +3,13 @@ import java.util.List;
 
 import org.hibernate.engine.jdbc.batch.spi.Batch;
 
-import com.pro.soccer.model.Users;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Coach {
 	private Users user;
+	@Id
 	private Integer coach_id;
 	private List<Batch> batches;
 	private List<Player> players;
