@@ -4,15 +4,30 @@ import java.util.List;
 import org.hibernate.engine.jdbc.batch.spi.Batch;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Coach {
+	@OneToOne
 	private Users user;
 	@Id
 	private Integer coach_id;
-	private List<Batch> batches;
+	@OneToMany(mappedBy="personalCoach", fetch=FetchType.LAZY)
 	private List<Player> players;
+	
+	@OneToMany(mappedBy="coach", fetch=FetchType.LAZY)
+	private List<TrainingBatch> batch;
+	
+	
+	public List<TrainingBatch> getBatch() {
+		return batch;
+	}
+	public void setBatch(List<TrainingBatch> batch) {
+		this.batch = batch;
+	}
 	public Users getUser() {
 		return user;
 	}
@@ -25,24 +40,19 @@ public class Coach {
 	public void setCoach_id(Integer coach_id) {
 		this.coach_id = coach_id;
 	}
-	public List<Batch> getBatches() {
-		return batches;
-	}
-	public void setBatches(List<Batch> batches) {
-		this.batches = batches;
-	}
 	public List<Player> getPlayers() {
 		return players;
 	}
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
-	public Coach(Users user, Integer coach_id, List<Batch> batches, List<Player> players) {
+
+	public Coach(Users user, Integer coach_id, List<Player> players, List<TrainingBatch> batch) {
 		super();
 		this.user = user;
 		this.coach_id = coach_id;
-		this.batches = batches;
 		this.players = players;
+		this.batch = batch;
 	}
 	public Coach() {
 		super();

@@ -1,60 +1,74 @@
 package com.pro.soccer.model;
 
-import java.util.List;
-
-import org.aspectj.weaver.patterns.ConcreteCflowPointcut.Slot;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 @Entity
-public class Booking<T> {
+public class Booking {
 	@Id
 	private Integer book_id;
-	private T traineeType;
-	private List<Slot> slots;
-	private Coach coach;
-	private Ground ground;
+	private String startTime;
+	private String endTime;	
+	@OneToOne
+	private Slots slot;
+	@OneToOne
+	private TrainingBatch batch;
+	@OneToOne
+	private Player player;
 	
+	
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
 	public Integer getBook_id() {
 		return book_id;
 	}
 	public void setBook_id(Integer book_id) {
 		this.book_id = book_id;
 	}
-	public T getTraineeType() {
-		return traineeType;
+	
+
+	public Slots getSlot() {
+		return slot;
 	}
-	public void setTraineeType(T traineeType) {
-		this.traineeType = traineeType;
+	public void setSlot(Slots slot) {
+		this.slot = slot;
 	}
-	public List<Slot> getSlots() {
-		return slots;
+	public TrainingBatch getBatch() {
+		return batch;
 	}
-	public void setSlots(List<Slot> slots) {
-		this.slots = slots;
+	public void setBatch(TrainingBatch batch) {
+		this.batch = batch;
 	}
-	public Coach getCoach() {
-		return coach;
+	public Player getPlayer() {
+		return player;
 	}
-	public void setCoach(Coach coach) {
-		this.coach = coach;
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
-	public Ground getGround() {
-		return ground;
-	}
-	public void setGround(Ground ground) {
-		this.ground = ground;
-	}
-	public Booking(Integer book_id, T traineeType, List<Slot> slots, Coach coach, Ground ground) {
+
+	public Booking(Integer book_id, String startTime, String endTime, Slots slot, TrainingBatch batch, Player player) {
 		super();
 		this.book_id = book_id;
-		this.traineeType = traineeType;
-		this.slots = slots;
-		this.coach = coach;
-		this.ground = ground;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.slot = slot;
+		this.batch = batch;
+		this.player = player;
 	}
 	public Booking() {
 		super();
 	}
+	
 	
 }

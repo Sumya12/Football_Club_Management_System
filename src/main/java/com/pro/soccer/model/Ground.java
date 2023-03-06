@@ -3,15 +3,29 @@ package com.pro.soccer.model;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 @Entity
 public class Ground {
 	@Id
 	private Integer ground_id;
+	@OneToMany(mappedBy="ground", fetch=FetchType.LAZY)
 	private List<Slots> slots;
 	private Long capacity;
 	private Double size;
 	private String name;
+	@ManyToOne
+	private Club club;
+	
+	
+	public Club getClub() {
+		return club;
+	}
+	public void setClub(Club club) {
+		this.club = club;
+	}
 	public Integer getGround_id() {
 		return ground_id;
 	}
@@ -42,13 +56,15 @@ public class Ground {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Ground(Integer ground_id, List<Slots> slots, Long capacity, Double size, String name) {
+
+	public Ground(Integer ground_id, List<Slots> slots, Long capacity, Double size, String name, Club club) {
 		super();
 		this.ground_id = ground_id;
 		this.slots = slots;
 		this.capacity = capacity;
 		this.size = size;
 		this.name = name;
+		this.club = club;
 	}
 	public Ground() {
 		super();

@@ -3,38 +3,38 @@ package com.pro.soccer.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.aspectj.weaver.patterns.ConcreteCflowPointcut.Slot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pro.soccer.model.Slots;
 import com.pro.soccer.repo.SlotRepo;
 
 @Service
-public class SlotService implements CrudService<Slot, Integer>{
+public class SlotService implements CrudService<Slots, Integer>{
 
 	@Autowired
 	SlotRepo repo;
 	
 	@Override
-	public void add(Slot t) {
+	public void add(Slots t) {
 		// TODO Auto-generated method stub
 		repo.save(t);
 	}
 
 	@Override
-	public Slot getById(Integer id) {
+	public Slots getById(Integer id) {
 		// TODO Auto-generated method stub
 		return (repo.findById(id).equals(Optional.empty()))?repo.findById(id).get():null;
 	}
 
 	@Override
-	public List<Slot> getAll() {
+	public List<Slots> getAll() {
 		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 
 	@Override
-	public void update(Slot t) {
+	public void update(Slots t) {
 		// TODO Auto-generated method stub
 		repo.save(t);
 	}
