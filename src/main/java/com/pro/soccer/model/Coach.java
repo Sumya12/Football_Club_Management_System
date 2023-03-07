@@ -1,10 +1,10 @@
 package com.pro.soccer.model;
 import java.util.List;
 
-import org.hibernate.engine.jdbc.batch.spi.Batch;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -14,6 +14,7 @@ public class Coach {
 	@OneToOne
 	private Users user;
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer coach_id;
 	@OneToMany(mappedBy="personalCoach", fetch=FetchType.LAZY)
 	private List<Player> players;

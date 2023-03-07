@@ -1,6 +1,8 @@
 package com.pro.soccer.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -10,7 +12,8 @@ public class Player {
 	@OneToOne
 	private Users user;
 	@Id
-	private Integer platyer_id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer player_id;
 	@OneToOne
 	private Coach personalCoach;
 	@OneToOne
@@ -41,11 +44,11 @@ public class Player {
 	public void setUser(Users user) {
 		this.user = user;
 	}
-	public Integer getPlatyer_id() {
-		return platyer_id;
+	public Integer getPlayer_id() {
+		return player_id;
 	}
-	public void setPlatyer_id(Integer platyer_id) {
-		this.platyer_id = platyer_id;
+	public void setPlayer_id(Integer player_id) {
+		this.player_id = player_id;
 	}
 	public Coach getPersonalCoach() {
 		return personalCoach;
@@ -61,11 +64,11 @@ public class Player {
 	}
 
 
-	public Player(Users user, Integer platyer_id, Coach personalCoach, Booking booking, Club club,
+	public Player(Users user, Integer player_id, Coach personalCoach, Booking booking, Club club,
 			TrainingBatch batch) {
 		super();
 		this.user = user;
-		this.platyer_id = platyer_id;
+		this.player_id = player_id;
 		this.personalCoach = personalCoach;
 		this.booking = booking;
 		this.club = club;

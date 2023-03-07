@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pro.soccer.model.Player;
-import com.pro.soccer.service.PlayerService;
+import com.pro.soccer.model.Coach;
+import com.pro.soccer.service.CoachService;
 
 @RestController
-@RequestMapping(value="/player")
-public class PlayerController implements CrudController<Player, Integer>{
+@RequestMapping(value="/coach")
+public class CoachController implements CrudController<Coach, Integer>{
 	@Autowired
-	PlayerService service;
+	CoachService service;
 
 	@Override
 	@PostMapping("/add")
-	public int add(@RequestBody Player model) {
+	public int add(@RequestBody Coach model) {
 		// TODO Auto-generated method stub
 		service.add(model);
 		return 1;
@@ -37,7 +37,7 @@ public class PlayerController implements CrudController<Player, Integer>{
 
 	@Override
 	@PostMapping("/update")
-	public int update(@RequestBody Player model) {
+	public int update(@RequestBody Coach model) {
 		// TODO Auto-generated method stub
 		service.update(model);
 		return 1;
@@ -45,14 +45,14 @@ public class PlayerController implements CrudController<Player, Integer>{
 
 	@Override
 	@GetMapping("/all")
-	public List<Player> getAll() {
+	public List<Coach> getAll() {
 		// TODO Auto-generated method stub
 		return service.getAll();
 	}
 
 	@Override
 	@GetMapping("/get/{id}")
-	public Player getById(@PathVariable("id") Integer id) {
+	public Coach getById(@PathVariable("id") Integer id) {
 		// TODO Auto-generated method stub
 		return service.getById(id);
 	}
