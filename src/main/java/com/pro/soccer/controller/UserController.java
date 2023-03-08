@@ -82,8 +82,10 @@ public class UserController implements CrudController<Users, String>{
 	}
 
 	@Override
-	public Users getById(String id) {
+	@GetMapping("/get/{id}")
+	@ResponseBody
+	public Users getById(@PathVariable String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return usersService.getById(id);
 	}
 }

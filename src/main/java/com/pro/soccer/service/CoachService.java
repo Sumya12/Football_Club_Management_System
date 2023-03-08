@@ -24,7 +24,7 @@ public class CoachService implements CrudService<Coach, Integer>{
 	@Override
 	public Coach getById(Integer id) {
 		// TODO Auto-generated method stub
-		return (repo.findById(id).equals(Optional.empty()))?repo.findById(id).get():null;
+		return (repo.findById(id).equals(Optional.empty()))?null:repo.findById(id).get();
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class UserService implements CrudService<Users, String>{
 	@Override
 	public Users getById(String id) {
 		// TODO Auto-generated method stub
-		return (repo.findById(id).equals(Optional.empty()))?repo.findById(id).get():null;
+		return (repo.findById(id).equals(Optional.empty()))?null:repo.findById(id).get();
 	}
 
 	@Override

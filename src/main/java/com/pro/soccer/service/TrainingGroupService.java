@@ -6,35 +6,35 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pro.soccer.model.TrainingBatch;
-import com.pro.soccer.repo.TrainingBatchRepo;
+import com.pro.soccer.model.TrainingGroup;
+import com.pro.soccer.repo.TrainingGroupRepo;
 
 @Service
-public class TrainingBatchService implements CrudService<TrainingBatch, Integer>{
+public class TrainingGroupService implements CrudService<TrainingGroup, Integer>{
 
 	@Autowired
-	TrainingBatchRepo repo;
+	TrainingGroupRepo repo;
 	
 	@Override
-	public void add(TrainingBatch t) {
+	public void add(TrainingGroup t) {
 		// TODO Auto-generated method stub
 		repo.save(t);
 	}
 
 	@Override
-	public TrainingBatch getById(Integer id) {
+	public TrainingGroup getById(Integer id) {
 		// TODO Auto-generated method stub
-		return (repo.findById(id).equals(Optional.empty()))?repo.findById(id).get():null;
+		return (repo.findById(id).equals(Optional.empty()))?null:repo.findById(id).get();
 	}
 
 	@Override
-	public List<TrainingBatch> getAll() {
+	public List<TrainingGroup> getAll() {
 		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 
 	@Override
-	public void update(TrainingBatch t) {
+	public void update(TrainingGroup t) {
 		// TODO Auto-generated method stub
 		repo.save(t);
 	}

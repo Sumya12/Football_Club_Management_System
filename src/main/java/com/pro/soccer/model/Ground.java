@@ -4,15 +4,18 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 @Entity
 public class Ground {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ground_id;
 	@OneToMany(mappedBy="ground", fetch=FetchType.LAZY)
-	private List<Slots> slots;
+	private List<BookingSlot> slots;
 	private Long capacity;
 	private Double size;
 	private String name;
@@ -32,10 +35,10 @@ public class Ground {
 	public void setGround_id(Integer ground_id) {
 		this.ground_id = ground_id;
 	}
-	public List<Slots> getSlots() {
+	public List<BookingSlot> getSlots() {
 		return slots;
 	}
-	public void setSlots(List<Slots> slots) {
+	public void setSlots(List<BookingSlot> slots) {
 		this.slots = slots;
 	}
 	public Long getCapacity() {
@@ -57,7 +60,7 @@ public class Ground {
 		this.name = name;
 	}
 
-	public Ground(Integer ground_id, List<Slots> slots, Long capacity, Double size, String name, Club club) {
+	public Ground(Integer ground_id, List<BookingSlot> slots, Long capacity, Double size, String name, Club club) {
 		super();
 		this.ground_id = ground_id;
 		this.slots = slots;

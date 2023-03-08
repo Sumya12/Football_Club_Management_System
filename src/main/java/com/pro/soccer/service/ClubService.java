@@ -24,7 +24,7 @@ public class ClubService implements CrudService<Club, Integer>{
 	@Override
 	public Club getById(Integer id) {
 		// TODO Auto-generated method stub
-		return (repo.findById(id).equals(Optional.empty()))?repo.findById(id).get():null;
+		return (repo.findById(id).equals(Optional.empty()))?null:repo.findById(id).get();
 	}
 
 	@Override

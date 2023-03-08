@@ -6,35 +6,35 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pro.soccer.model.Slots;
+import com.pro.soccer.model.BookingSlot;
 import com.pro.soccer.repo.SlotRepo;
 
 @Service
-public class SlotService implements CrudService<Slots, Integer>{
+public class SlotService implements CrudService<BookingSlot, Integer>{
 
 	@Autowired
 	SlotRepo repo;
 	
 	@Override
-	public void add(Slots t) {
+	public void add(BookingSlot t) {
 		// TODO Auto-generated method stub
 		repo.save(t);
 	}
 
 	@Override
-	public Slots getById(Integer id) {
+	public BookingSlot getById(Integer id) {
 		// TODO Auto-generated method stub
-		return (repo.findById(id).equals(Optional.empty()))?repo.findById(id).get():null;
+		return (repo.findById(id).equals(Optional.empty()))?null:repo.findById(id).get();
 	}
 
 	@Override
-	public List<Slots> getAll() {
+	public List<BookingSlot> getAll() {
 		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 
 	@Override
-	public void update(Slots t) {
+	public void update(BookingSlot t) {
 		// TODO Auto-generated method stub
 		repo.save(t);
 	}

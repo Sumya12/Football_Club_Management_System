@@ -2,20 +2,26 @@ package com.pro.soccer.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class TrainingBatch {
+public class TrainingGroup {
 	@Id
-	private Integer batch_id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer training_id;
 	@ManyToOne
 	private Coach coach;
-	@OneToMany(mappedBy="batch", fetch=FetchType.LAZY)
+	@JsonBackReference
+	@OneToMany(mappedBy="group", fetch=FetchType.LAZY)
 	private List<Player> players;
 	private String startTime;
 	private String endTime;
@@ -23,11 +29,13 @@ public class TrainingBatch {
 	private Booking booking;
 	@ManyToOne
 	private Club club;
-	public Integer getBatch_id() {
-		return batch_id;
+	
+	
+	public Integer getTraining_id() {
+		return training_id;
 	}
-	public void setBatch_id(Integer batch_id) {
-		this.batch_id = batch_id;
+	public void setTraining_id(Integer training_id) {
+		this.training_id = training_id;
 	}
 	public Coach getCoach() {
 		return coach;
@@ -67,10 +75,11 @@ public class TrainingBatch {
 		this.club = club;
 	}
 
-	public TrainingBatch(Integer batch_id, Coach coach, List<Player> players, String startTime, String endTime,
+
+	public TrainingGroup(Integer training_id, Coach coach, List<Player> players, String startTime, String endTime,
 			Booking booking, Club club) {
 		super();
-		this.batch_id = batch_id;
+		this.training_id = training_id;
 		this.coach = coach;
 		this.players = players;
 		this.startTime = startTime;
@@ -78,7 +87,7 @@ public class TrainingBatch {
 		this.booking = booking;
 		this.club = club;
 	}
-	public TrainingBatch() {
+	public TrainingGroup() {
 		super();
 	}
 	

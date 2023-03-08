@@ -1,5 +1,6 @@
 package com.pro.soccer.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +9,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pro.soccer.model.Club;
 import com.pro.soccer.model.Player;
+import com.pro.soccer.service.ClubService;
 import com.pro.soccer.service.PlayerService;
 
 @RestController
-@RequestMapping(value="/player")
-public class PlayerController implements CrudController<Player, Integer>{
+@RequestMapping(value = "/player")
+public class PlayerController implements CrudController<Player, Integer> {
 	@Autowired
 	PlayerService service;
+
+	@Autowired
+	ClubService clubService;
 
 	@Override
 	@PostMapping("/add")
@@ -56,6 +63,39 @@ public class PlayerController implements CrudController<Player, Integer>{
 		// TODO Auto-generated method stub
 		return service.getById(id);
 	}
-	
-	
+
+	@PostMapping(value = "/joinclub/{clubid}")
+	public int joinClub(@PathVariable("clubid") Integer clubid, @RequestParam Integer pid) {
+		System.out.println("0");
+		Club club = clubService.getById(clubid);
+		if (club == null) {
+			System.out.println(clubid);
+			return 0;
+		}
+		Player player = service.getById(pid);
+
+		if (player == null) {
+			//System.out.println(model.getPid());
+			return 0;
+		}
+
+		System.out.println("1");
+		player.setClub(club);
+		System.out.println("2");
+		List<Player> players = club.getPlayers();
+		System.out.println("3");
+		if (players == null) {
+			System.out.println("4");
+			players = new ArrayList<Player>();
+		}
+		System.out.println("5");
+		players.add(player);
+		System.out.println("6");
+		club.setPlayers(players);
+		service.update(player);
+		clubService.update(club);
+		return 1;
+
+	}
+
 }

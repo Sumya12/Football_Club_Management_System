@@ -2,18 +2,21 @@ package com.pro.soccer.model;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 @Entity
 public class Booking {
 	@Id
-	private Integer book_id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer booking_id;
 	private String startTime;
 	private String endTime;	
 	@OneToOne
-	private Slots slot;
+	private BookingSlot slot;
 	@OneToOne
-	private TrainingBatch batch;
+	private TrainingGroup batch;
 	@OneToOne
 	private Player player;
 	
@@ -30,24 +33,25 @@ public class Booking {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-	public Integer getBook_id() {
-		return book_id;
-	}
-	public void setBook_id(Integer book_id) {
-		this.book_id = book_id;
-	}
+
 	
 
-	public Slots getSlot() {
+	public Integer getBooking_id() {
+		return booking_id;
+	}
+	public void setBooking_id(Integer booking_id) {
+		this.booking_id = booking_id;
+	}
+	public BookingSlot getSlot() {
 		return slot;
 	}
-	public void setSlot(Slots slot) {
+	public void setSlot(BookingSlot slot) {
 		this.slot = slot;
 	}
-	public TrainingBatch getBatch() {
+	public TrainingGroup getBatch() {
 		return batch;
 	}
-	public void setBatch(TrainingBatch batch) {
+	public void setBatch(TrainingGroup batch) {
 		this.batch = batch;
 	}
 	public Player getPlayer() {
@@ -57,9 +61,11 @@ public class Booking {
 		this.player = player;
 	}
 
-	public Booking(Integer book_id, String startTime, String endTime, Slots slot, TrainingBatch batch, Player player) {
+
+	public Booking(Integer booking_id, String startTime, String endTime, BookingSlot slot, TrainingGroup batch,
+			Player player) {
 		super();
-		this.book_id = book_id;
+		this.booking_id = booking_id;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.slot = slot;

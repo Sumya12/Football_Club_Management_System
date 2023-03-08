@@ -1,6 +1,8 @@
 package com.pro.soccer.model;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,18 +19,14 @@ public class Coach {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer coach_id;
 	@OneToMany(mappedBy="personalCoach", fetch=FetchType.LAZY)
+	@JsonIgnore
 	private List<Player> players;
 	
 	@OneToMany(mappedBy="coach", fetch=FetchType.LAZY)
-	private List<TrainingBatch> batch;
+	@JsonIgnore
+	private List<TrainingGroup> group;
 	
 	
-	public List<TrainingBatch> getBatch() {
-		return batch;
-	}
-	public void setBatch(List<TrainingBatch> batch) {
-		this.batch = batch;
-	}
 	public Users getUser() {
 		return user;
 	}
@@ -47,13 +45,20 @@ public class Coach {
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
-
-	public Coach(Users user, Integer coach_id, List<Player> players, List<TrainingBatch> batch) {
+	public List<TrainingGroup> getGroup() {
+		return group;
+	}
+	public void setGroup(List<TrainingGroup> group) {
+		this.group = group;
+	}
+	
+	
+	public Coach(Users user, Integer coach_id, List<Player> players, List<TrainingGroup> group) {
 		super();
 		this.user = user;
 		this.coach_id = coach_id;
 		this.players = players;
-		this.batch = batch;
+		this.group = group;
 	}
 	public Coach() {
 		super();
