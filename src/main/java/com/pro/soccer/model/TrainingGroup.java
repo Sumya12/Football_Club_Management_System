@@ -20,11 +20,13 @@ public class TrainingGroup {
 	private Integer training_id;
 	@ManyToOne
 	private Coach coach;
+	private String name;
 	@JsonBackReference
 	@OneToMany(mappedBy="group", fetch=FetchType.LAZY)
 	private List<Player> players;
-	private String startTime;
-	private String endTime;
+	private String startDate;
+	private String endDate;
+	private String time;
 	@OneToOne
 	private Booking booking;
 	@ManyToOne
@@ -49,17 +51,30 @@ public class TrainingGroup {
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
-	public String getStartTime() {
-		return startTime;
+	
+	public String getName() {
+		return name;
 	}
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getEndTime() {
-		return endTime;
+	public String getStartDate() {
+		return startDate;
 	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
 	}
 	public Booking getBooking() {
 		return booking;
@@ -76,14 +91,17 @@ public class TrainingGroup {
 	}
 
 
-	public TrainingGroup(Integer training_id, Coach coach, List<Player> players, String startTime, String endTime,
-			Booking booking, Club club) {
+	
+	public TrainingGroup(Integer training_id, Coach coach, String name, List<Player> players, String startDate,
+			String endDate, String time, Booking booking, Club club) {
 		super();
 		this.training_id = training_id;
 		this.coach = coach;
+		this.name = name;
 		this.players = players;
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.time = time;
 		this.booking = booking;
 		this.club = club;
 	}

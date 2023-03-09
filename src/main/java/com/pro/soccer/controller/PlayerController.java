@@ -66,7 +66,6 @@ public class PlayerController implements CrudController<Player, Integer> {
 
 	@PostMapping(value = "/joinclub/{clubid}")
 	public int joinClub(@PathVariable("clubid") Integer clubid, @RequestParam Integer pid) {
-		System.out.println("0");
 		Club club = clubService.getById(clubid);
 		if (club == null) {
 			System.out.println(clubid);
@@ -79,18 +78,12 @@ public class PlayerController implements CrudController<Player, Integer> {
 			return 0;
 		}
 
-		System.out.println("1");
 		player.setClub(club);
-		System.out.println("2");
 		List<Player> players = club.getPlayers();
-		System.out.println("3");
 		if (players == null) {
-			System.out.println("4");
 			players = new ArrayList<Player>();
 		}
-		System.out.println("5");
 		players.add(player);
-		System.out.println("6");
 		club.setPlayers(players);
 		service.update(player);
 		clubService.update(club);
