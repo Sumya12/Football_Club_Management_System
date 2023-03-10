@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pro.soccer.model.Coach;
+import com.pro.soccer.model.TrainingGroup;
 import com.pro.soccer.service.CoachService;
 
 @RestController
@@ -55,6 +56,15 @@ public class CoachController implements CrudController<Coach, Integer>{
 	public Coach getById(@PathVariable("id") Integer id) {
 		// TODO Auto-generated method stub
 		return service.getById(id);
+	}
+	
+	@GetMapping("/getAlTrainingGroup/{coachid}")
+	public List<TrainingGroup> getAlTrainingGroup(@PathVariable("coachid") Integer id) {
+		Coach coach = service.getById(id);
+		if(coach == null) {
+			return null;
+		}
+		return coach.getGroup();
 	}
 	
 	

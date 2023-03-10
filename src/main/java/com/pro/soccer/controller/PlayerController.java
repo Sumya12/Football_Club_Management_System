@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pro.soccer.model.Club;
+import com.pro.soccer.model.Coach;
+import com.pro.soccer.model.PersonalTrainingRequest;
 import com.pro.soccer.model.Player;
 import com.pro.soccer.model.TrainingGroup;
 import com.pro.soccer.service.ClubService;
+import com.pro.soccer.service.CoachService;
+import com.pro.soccer.service.PersonalTrainingService;
 import com.pro.soccer.service.PlayerService;
 import com.pro.soccer.service.TrainingGroupService;
 
@@ -30,6 +34,12 @@ public class PlayerController implements CrudController<Player, Integer> {
 
 	@Autowired
 	ClubService clubService;
+	
+	@Autowired
+	CoachService coachService;
+	
+	@Autowired
+	PersonalTrainingService personalTrainingService;
 
 	@Override
 	@PostMapping("/add")
@@ -114,6 +124,23 @@ public class PlayerController implements CrudController<Player, Integer> {
 		
 		service.update(player);
 		traingGroupService.update(group);
+		return 1;
+	}
+	
+	@PostMapping(value = "/bookPersonalCoach/{coachid}/{pid}")
+	public int bookPersonalCoach(@PathVariable("coachid") Integer id, @PathVariable("pid") Integer pid) {
+		Player player = service.getById(pid);
+		if(player == null)
+			return 0;
+		Coach coach = coachService.getById(pid);
+		if(player == null)
+			return 0;
+		
+		PersonalTrainingRequest request = new PersonalTrainingRequest();
+		request.setCoach(coach);
+		request.setPlayer(player);
+		request.setStatus("WAITING");
+		personalTrainingService.update(request);
 		return 1;
 	}
 
