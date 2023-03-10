@@ -14,14 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pro.soccer.model.Club;
 import com.pro.soccer.model.Player;
+import com.pro.soccer.model.TrainingGroup;
 import com.pro.soccer.service.ClubService;
 import com.pro.soccer.service.PlayerService;
+import com.pro.soccer.service.TrainingGroupService;
 
 @RestController
 @RequestMapping(value = "/player")
 public class PlayerController implements CrudController<Player, Integer> {
 	@Autowired
 	PlayerService service;
+	
+	@Autowired
+	TrainingGroupService traingGroupService;
 
 	@Autowired
 	ClubService clubService;
@@ -90,5 +95,27 @@ public class PlayerController implements CrudController<Player, Integer> {
 		return 1;
 
 	}
+	
+	@PostMapping(value = "/joingroup/{groupid}/{pid}")
+	public int joinTrainingGroup(@PathVariable("groupid") Integer groupid, @PathVariable("pid") Integer pid) {
+		Player player = service.getById(pid);
+		if(player == null)
+			return 0;
+		TrainingGroup group = traingGroupService.getById(groupid);
+		if(group == null)
+			return 0;
+		List<Player> players = group.getPlayers();
+		if (players == null) {
+			players = new ArrayList<Player>();
+		}
+		players.add(player);
+		group.setPlayers(players);
+		player.setGroup(group);
+		
+		service.update(player);
+		traingGroupService.update(group);
+		return 1;
+	}
+
 
 }
