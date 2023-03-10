@@ -27,7 +27,6 @@ public class Player {
 	@OneToOne
 	private Club club;
 
-	@JsonManagedReference
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 	private TrainingGroup group;
 
