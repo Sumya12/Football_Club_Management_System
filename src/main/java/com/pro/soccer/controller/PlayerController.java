@@ -181,8 +181,6 @@ public class PlayerController implements CrudController<Player, Integer> {
 		player.setBooking(booking);
 		service.update(player);
 		
-		
-		
 		List<BookingSlot> slots = ground.getSlots();
 		if(slots == null) {
 			slots = new ArrayList<BookingSlot>();
@@ -191,6 +189,29 @@ public class PlayerController implements CrudController<Player, Integer> {
 		ground.setSlots(slots); // set booked slots
 		groundService.update(ground);
 		return 1;
+	}
+	
+
+	@GetMapping("/hasCoach/{pid}")
+	public int hasCoach(@PathVariable Integer pid) {
+		Player player = service.getById(pid);
+		if(player == null)
+			return 0;
+		
+		if(player.getPersonalCoach() != null)
+			return 1;
+		return 0;
+	}
+	
+	@GetMapping("/hasTrainingGroup/{pid}")
+	public int hasTrainingGroup(@PathVariable Integer pid) {
+		Player player = service.getById(pid);
+		if(player == null)
+			return 0;
+		
+		if(player.getGroup() != null)
+			return 1;
+		return 0;
 	}
 
 

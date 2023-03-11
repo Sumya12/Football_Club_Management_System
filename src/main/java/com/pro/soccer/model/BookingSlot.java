@@ -14,8 +14,7 @@ public class BookingSlot {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer booking_slot_id;
 	private Date date;
-	private String fromTime;
-	private String toTime;
+	private String time;
 	@ManyToOne
 	private Ground ground;
 	
@@ -40,28 +39,19 @@ public class BookingSlot {
 		this.date = date;
 	}
 
-
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
 	
-	public String getFromTime() {
-		return fromTime;
-	}
-	public void setFromTime(String fromTime) {
-		this.fromTime = fromTime;
-	}
-	public String getToTime() {
-		return toTime;
-	}
-	public void setToTime(String toTime) {
-		this.toTime = toTime;
-	}
-
 	
-	public BookingSlot(Integer booking_slot_id, Date date, String fromTime, String toTime, Ground ground) {
+	public BookingSlot(Integer booking_slot_id, Date date, String time, Ground ground) {
 		super();
 		this.booking_slot_id = booking_slot_id;
 		this.date = date;
-		this.fromTime = fromTime;
-		this.toTime = toTime;
+		this.time = time;
 		this.ground = ground;
 	}
 	public BookingSlot() {
