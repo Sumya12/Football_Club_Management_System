@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pro.soccer.model.Coach;
+import com.pro.soccer.model.PersonalTrainingRequest;
 import com.pro.soccer.model.TrainingGroup;
 import com.pro.soccer.service.CoachService;
+import com.pro.soccer.service.PersonalTrainingService;
 
 @RestController
 @RequestMapping(value="/coach")
 public class CoachController implements CrudController<Coach, Integer>{
 	@Autowired
 	CoachService service;
+	
+	@Autowired
+	PersonalTrainingService requestService;
 
 	@Override
 	@PostMapping("/add")
@@ -65,6 +70,19 @@ public class CoachController implements CrudController<Coach, Integer>{
 			return null;
 		}
 		return coach.getGroup();
+	}
+	
+	@GetMapping("/getAllPersonalTrainee/{coachid}")
+	public List<PersonalTrainingRequest> getAllPersonalTrainee(@PathVariable("coachid") Integer id) {
+		Coach coach = service.getById(id);
+		if(coach == null) {
+			return null;
+		}
+		List<PersonalTrainingRequest> requests = requestService.getAll();
+		if(requests == null) {
+			return null;
+		}
+		return requests.stream().filter(r->r.getCoach().getCoach_id().equals(id)).toList();
 	}
 	
 	

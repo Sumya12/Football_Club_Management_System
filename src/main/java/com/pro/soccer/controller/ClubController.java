@@ -90,6 +90,7 @@ public class ClubController implements CrudController<Club, Integer>{
 		groups.add(group);
 		club.setBatches(groups);
 		group.setClub(club);
+		group.setPlayerCount(group.getPlayerCount()+1);
 		service.update(club);
 		trainingService.update(group);
 		
@@ -103,6 +104,7 @@ public class ClubController implements CrudController<Club, Integer>{
 		group.setCoach(coach);
 		coachService.update(coach);
 		trainingService.update(group);
+		
 		return 1;
 	}
 	

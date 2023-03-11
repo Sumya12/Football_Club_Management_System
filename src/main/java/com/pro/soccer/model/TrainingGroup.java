@@ -27,12 +27,19 @@ public class TrainingGroup {
 	private String startDate;
 	private String endDate;
 	private String time;
+	private Integer playerCount;
 	@OneToOne
 	private Booking booking;
 	@ManyToOne
 	private Club club;
 	
 	
+	public Integer getPlayerCount() {
+		return playerCount;
+	}
+	public void setPlayerCount(Integer playerCount) {
+		this.playerCount = playerCount;
+	}
 	public Integer getTraining_id() {
 		return training_id;
 	}
@@ -91,9 +98,8 @@ public class TrainingGroup {
 	}
 
 
-	
 	public TrainingGroup(Integer training_id, Coach coach, String name, List<Player> players, String startDate,
-			String endDate, String time, Booking booking, Club club) {
+			String endDate, String time, Integer playerCount, Booking booking, Club club) {
 		super();
 		this.training_id = training_id;
 		this.coach = coach;
@@ -102,6 +108,7 @@ public class TrainingGroup {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.time = time;
+		this.playerCount = playerCount;
 		this.booking = booking;
 		this.club = club;
 	}
