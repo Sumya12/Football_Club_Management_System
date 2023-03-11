@@ -199,7 +199,7 @@ public class PlayerController implements CrudController<Player, Integer> {
 			return 0;
 		
 		if(player.getPersonalCoach() != null)
-			return 1;
+			return player.getPersonalCoach().getCoach_id();
 		return 0;
 	}
 	
@@ -210,7 +210,7 @@ public class PlayerController implements CrudController<Player, Integer> {
 			return 0;
 		
 		if(player.getGroup() != null)
-			return 1;
+			return player.getGroup().getTraining_id();
 		return 0;
 	}
 
