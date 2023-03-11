@@ -12,15 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pro.soccer.model.Booking;
+import com.pro.soccer.model.BookingSlot;
 import com.pro.soccer.model.Club;
 import com.pro.soccer.model.Coach;
+import com.pro.soccer.model.Ground;
 import com.pro.soccer.model.PersonalTrainingRequest;
 import com.pro.soccer.model.Player;
 import com.pro.soccer.model.TrainingGroup;
+import com.pro.soccer.service.BookingService;
 import com.pro.soccer.service.ClubService;
 import com.pro.soccer.service.CoachService;
+import com.pro.soccer.service.GroundService;
 import com.pro.soccer.service.PersonalTrainingService;
 import com.pro.soccer.service.PlayerService;
+import com.pro.soccer.service.SlotService;
 import com.pro.soccer.service.TrainingGroupService;
 
 @RestController
@@ -39,7 +45,16 @@ public class PlayerController implements CrudController<Player, Integer> {
 	CoachService coachService;
 	
 	@Autowired
+	GroundService groundService;
+	
+	@Autowired
+	BookingService bookingService;
+	
+	@Autowired
 	PersonalTrainingService personalTrainingService;
+	
+	@Autowired
+	SlotService slotService;
 
 	@Override
 	@PostMapping("/add")
@@ -128,12 +143,12 @@ public class PlayerController implements CrudController<Player, Integer> {
 	}
 	
 	@PostMapping(value = "/bookPersonalCoach/{coachid}/{pid}")
-	public int bookPersonalCoach(@PathVariable("coachid") Integer id, @PathVariable("pid") Integer pid) {
+	public int bookPersonalCoach(@PathVariable("coachid") Integer coachid, @PathVariable("pid") Integer pid) {
 		Player player = service.getById(pid);
 		if(player == null)
 			return 0;
-		Coach coach = coachService.getById(pid);
-		if(player == null)
+		Coach coach = coachService.getById(coachid);
+		if(coach == null)
 			return 0;
 		
 		PersonalTrainingRequest request = new PersonalTrainingRequest();
@@ -141,6 +156,40 @@ public class PlayerController implements CrudController<Player, Integer> {
 		request.setPlayer(player);
 		request.setStatus("WAITING");
 		personalTrainingService.update(request);
+		return 1;
+	}
+	
+	@PostMapping(value = "/bookGround/{pid}/{gid}")
+	public int bookGround(@PathVariable("pid") Integer pid, @PathVariable("gid") Integer gid, @RequestBody BookingSlot slot) {
+		Player player = service.getById(pid);
+		if(player == null)
+			return 0;
+		Ground ground = groundService.getById(gid);
+		if(ground == null)
+			return 0;
+		
+		slot.setGround(ground);
+		slotService.update(slot);
+		
+		Booking booking =new Booking();
+		booking.setSlot(slot);
+		booking.setPlayer(player);
+		booking.setStartTime(slot.getFromTime());
+		booking.setEndTime(slot.getToTime());
+		bookingService.add(booking);
+		
+		player.setBooking(booking);
+		service.update(player);
+		
+		
+		
+		List<BookingSlot> slots = ground.getSlots();
+		if(slots == null) {
+			slots = new ArrayList<BookingSlot>();
+		}
+		slots.add(slot);
+		ground.setSlots(slots); // set booked slots
+		groundService.update(ground);
 		return 1;
 	}
 
