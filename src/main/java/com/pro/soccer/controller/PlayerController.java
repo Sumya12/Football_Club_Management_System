@@ -216,6 +216,6 @@ public class PlayerController implements CrudController<Player, Integer> {
 			return player.getGroup().getTraining_id();
 		return 0;
 	}
-
+	
 
 }

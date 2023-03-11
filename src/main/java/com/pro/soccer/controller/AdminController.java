@@ -1,6 +1,7 @@
 package com.pro.soccer.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pro.soccer.model.BookingSlot;
 import com.pro.soccer.model.Club;
 import com.pro.soccer.model.Coach;
 import com.pro.soccer.model.Ground;
 import com.pro.soccer.model.PersonalTrainingRequest;
 import com.pro.soccer.model.Player;
+import com.pro.soccer.repo.BookingRepo;
 import com.pro.soccer.service.ClubService;
 import com.pro.soccer.service.CoachService;
 import com.pro.soccer.service.GroundService;
@@ -102,7 +106,19 @@ public class AdminController{
 			return null;
 		return club.getGrounds();
 	}
-	
+	@GetMapping("/getBookedSlots/{gid}")
+	public List<BookingSlot> getBookedSlots(@PathVariable Integer gid, @RequestParam Date date) {
+		Ground ground = groundService.getById(gid);
+		if(ground == null)
+			return null;
+		List<BookingSlot> slots = ground.getSlots();
+		if(slots == null) {
+			slots = new ArrayList<BookingSlot>();
+		}else {
+			slots = slots.stream().filter((s)->s.getDate().equals(date)).toList();
+		}
+		return slots;
+	}
 
 	
 	
