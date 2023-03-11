@@ -1,5 +1,6 @@
 package com.pro.soccer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -27,6 +28,7 @@ public class Player {
 	@OneToOne
 	private Club club;
 
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 	private TrainingGroup group;
 
