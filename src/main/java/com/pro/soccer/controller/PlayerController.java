@@ -174,8 +174,11 @@ public class PlayerController implements CrudController<Player, Integer> {
 		Booking booking =new Booking();
 		booking.setSlot(slot);
 		booking.setPlayer(player);
-		booking.setStartTime(slot.getFromTime());
-		booking.setEndTime(slot.getToTime());
+		// time format = [08:00-10:00]
+		String fromTime = slot.getTime().substring(0,5);
+		String toTime = slot.getTime().substring(6,11);
+		booking.setStartTime(fromTime);
+		booking.setEndTime(toTime);
 		bookingService.add(booking);
 		
 		player.setBooking(booking);
