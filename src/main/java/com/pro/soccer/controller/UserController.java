@@ -70,8 +70,8 @@ public class UserController implements CrudController<Users, String>{
 
 	@Override
 	public int update(Users model) {
-		// TODO Auto-generated method stub
-		return 0;
+		usersService.update(model);
+		return 1;
 	}
 
 	@Override
@@ -87,5 +87,18 @@ public class UserController implements CrudController<Users, String>{
 	public Users getById(@PathVariable String id) {
 		// TODO Auto-generated method stub
 		return usersService.getById(id);
+	}
+	
+	@GetMapping("/login")
+	@ResponseBody
+	public Users login(@RequestBody Users user) {
+		Users dbUser = usersService.getById(user.getEmail());
+		if(dbUser == null)
+			return null;
+		if(dbUser.getPassword().equals(user.getPassword())) {
+			return dbUser;
+		}else {
+			return null;
+		}
 	}
 }
