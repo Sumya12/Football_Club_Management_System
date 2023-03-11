@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pro.soccer.model.Player;
+import com.pro.soccer.model.Users;
 import com.pro.soccer.repo.PlayerRepo;
 
 @Service
@@ -46,6 +47,13 @@ public class PlayerService implements CrudService<Player, Integer>{
 		repo.deleteById(id);
 		return id;
 	}
+	
+
+	public Player getByUser(Users user) {
+		// TODO Auto-generated method stub
+		return repo.findByUser(user);
+	}
+
 
 
 	

@@ -89,13 +89,24 @@ public class UserController implements CrudController<Users, String>{
 		return usersService.getById(id);
 	}
 	
-	@GetMapping("/login")
+	@PostMapping("/login")
 	@ResponseBody
-	public Users login(@RequestBody Users user) {
+	public Object login(@RequestBody Users user) {
 		Users dbUser = usersService.getById(user.getEmail());
 		if(dbUser == null)
 			return null;
 		if(dbUser.getPassword().equals(user.getPassword())) {
+			if(dbUser.getRoles().equalsIgnoreCase("PLAYER")) {
+				Player player = playerService.getByUser(dbUser);
+				if(player == null)
+					return null;
+				return player;
+			}else if(dbUser.getRoles().equalsIgnoreCase("COACH")) {
+				Coach coach = coachService.getByUser(dbUser);
+				if(coach == null)
+					return null;
+				return coach;
+			}
 			return dbUser;
 		}else {
 			return null;

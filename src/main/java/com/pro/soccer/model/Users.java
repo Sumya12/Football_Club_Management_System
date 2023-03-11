@@ -1,5 +1,7 @@
 package com.pro.soccer.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -71,4 +73,21 @@ public class Users {
 		return "User =" + name + ", email=" + email + ", password=" + password + ", roles=" + roles
 				+ "]";
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(email);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Users other = (Users) obj;
+		return Objects.equals(email, other.email);
+	}
+	
+	
 }
