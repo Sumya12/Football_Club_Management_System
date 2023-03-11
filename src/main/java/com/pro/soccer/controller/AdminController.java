@@ -106,8 +106,9 @@ public class AdminController{
 			return null;
 		return club.getGrounds();
 	}
-	@GetMapping("/getBookedSlots/{gid}")
-	public List<BookingSlot> getBookedSlots(@PathVariable Integer gid, @RequestParam Date date) {
+	
+	@PostMapping("/getBookedSlots/{gid}")
+	public List<BookingSlot> getBookedSlots(@PathVariable Integer gid, @RequestParam String date) {
 		Ground ground = groundService.getById(gid);
 		if(ground == null)
 			return null;
@@ -119,6 +120,7 @@ public class AdminController{
 		}
 		return slots;
 	}
+	
 
 	
 	
