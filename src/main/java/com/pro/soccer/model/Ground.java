@@ -2,6 +2,8 @@ package com.pro.soccer.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ public class Ground {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ground_id;
+	@JsonIgnore
 	@OneToMany(mappedBy="ground", fetch=FetchType.LAZY)
 	private List<BookingSlot> slots;
 	private Long capacity;

@@ -169,6 +169,7 @@ public class PlayerController implements CrudController<Player, Integer> {
 			return 0;
 		
 		slot.setGround(ground);
+		System.out.println(1);
 		slotService.update(slot);
 		
 		Booking booking =new Booking();
@@ -179,9 +180,11 @@ public class PlayerController implements CrudController<Player, Integer> {
 		String toTime = slot.getTime().substring(6,11);
 		booking.setStartTime(fromTime);
 		booking.setEndTime(toTime);
+		System.out.println(2);
 		bookingService.add(booking);
 		
 		player.setBooking(booking);
+		System.out.println(3);
 		service.update(player);
 		
 		List<BookingSlot> slots = ground.getSlots();
@@ -190,6 +193,7 @@ public class PlayerController implements CrudController<Player, Integer> {
 		}
 		slots.add(slot);
 		ground.setSlots(slots); // set booked slots
+		System.out.println(4);
 		groundService.update(ground);
 		return 1;
 	}

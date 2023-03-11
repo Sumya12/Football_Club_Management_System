@@ -2,6 +2,8 @@ package com.pro.soccer.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,8 +15,9 @@ public class BookingSlot {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer booking_slot_id;
-	private Date date;
+	private String date;
 	private String time;
+	@JsonIgnore
 	@ManyToOne
 	private Ground ground;
 	
@@ -32,10 +35,10 @@ public class BookingSlot {
 	public void setBooking_slot_id(Integer booking_slot_id) {
 		this.booking_slot_id = booking_slot_id;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -47,7 +50,7 @@ public class BookingSlot {
 	}
 	
 	
-	public BookingSlot(Integer booking_slot_id, Date date, String time, Ground ground) {
+	public BookingSlot(Integer booking_slot_id, String date, String time, Ground ground) {
 		super();
 		this.booking_slot_id = booking_slot_id;
 		this.date = date;

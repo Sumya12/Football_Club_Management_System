@@ -1,6 +1,8 @@
 package com.pro.soccer.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,10 +15,13 @@ public class Booking {
 	private Integer booking_id;
 	private String startTime;
 	private String endTime;	
+	@JsonIgnore
 	@OneToOne
 	private BookingSlot slot;
+	@JsonIgnore
 	@OneToOne
 	private TrainingGroup batch;
+	@JsonIgnore
 	@OneToOne
 	private Player player;
 	
