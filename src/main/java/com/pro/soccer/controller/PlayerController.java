@@ -128,12 +128,12 @@ public class PlayerController implements CrudController<Player, Integer> {
 	}
 	
 	@PostMapping(value = "/bookPersonalCoach/{coachid}/{pid}")
-	public int bookPersonalCoach(@PathVariable("coachid") Integer id, @PathVariable("pid") Integer pid) {
+	public int bookPersonalCoach(@PathVariable("coachid") Integer coachid, @PathVariable("pid") Integer pid) {
 		Player player = service.getById(pid);
 		if(player == null)
 			return 0;
-		Coach coach = coachService.getById(pid);
-		if(player == null)
+		Coach coach = coachService.getById(coachid);
+		if(coach == null)
 			return 0;
 		
 		PersonalTrainingRequest request = new PersonalTrainingRequest();
