@@ -136,6 +136,11 @@ public class PlayerController implements CrudController<Player, Integer> {
 		players.add(player);
 		group.setPlayers(players);
 		player.setGroup(group);
+		if(group.getPlayerCount() == null) {
+			group.setPlayerCount(1);
+		}else {
+			group.setPlayerCount(group.getPlayerCount()+1);
+		}
 		
 		service.update(player);
 		traingGroupService.update(group);

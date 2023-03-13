@@ -90,7 +90,12 @@ public class ClubController implements CrudController<Club, Integer>{
 		groups.add(group);
 		club.setBatches(groups);
 		group.setClub(club);
-		group.setPlayerCount(group.getPlayerCount()+1);
+		if(group.getPlayerCount() == null) {
+			group.setPlayerCount(0);
+		}else {
+			group.setPlayerCount(0);
+		}
+		
 		service.update(club);
 		trainingService.update(group);
 		
